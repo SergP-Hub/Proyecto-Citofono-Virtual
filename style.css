@@ -1,0 +1,54 @@
+ body {
+  font: 1rem 'Fira Sans', sans-serif;
+}
+
+ .error {
+  text-align: center;
+  text-decoration: honeydew; 
+  background-color: red;
+}
+
+ .dialing {
+  text-align: center;
+  text-decoration: honeydew;
+  background-color: yellow;
+}
+
+ .succes {
+   text-align: center;
+   background-color: greenyellow;
+ }
+
+ .keyboard {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .tittle {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+ }
+
+ h1 {
+  color: #000;
+  text-shadow: #555 2px 2px 3px;
+ }
+ 
+ .screenInput, #screen {
+  display: flex; 
+  justify-content: center;
+  
+ }
+
+ .action-buttons {
+  padding: 5px;
+  margin: 10px;
+ }
+
+ .action-buttons2 {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel = StyleSheet href = "style.css">
+  <link rel = StyleSheet href = "https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <title>Citofono Virtual</title>
+</head>
+<body>
+  <div class="tittle"><H1 id="ppalTittel">CITOFONO VIRTUAL</H1></div>
+  <div class="container">
+    <div class="screenInput">
+      <span id="screen"></span>
+    </div>
+    <div class="keyboard">
+      <table class="keys">
+        <tr>
+          <td colspan="4"><span id="llamar" placeholder="Digite un apartamento" ></span></td> 
+        </tr>
+        <tr>
+          <td><button id="one" class="button-number">1</button></td>
+          <td><button id="two" class="button-number">2</button></td>
+          <td><button id="three" class="button-number">3</button></td>
+        </tr>
+        <tr>
+          <td><button id="four" class="button-number">4</button></td>
+          <td><button id="five" class="button-number">5</button></td>
+          <td><button id="six" class="button-number">6</button></td>
+        </tr>
+        <tr>
+          <td><button id="seven" class="button-number">7</button></td>
+          <td><button id="eight" class="button-number">8</button></td>
+          <td><button id="nine" class="button-number">9</button></td>
+        </tr>
+        <tr>
+          <td><button id="zero" class="button-number">0</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="action-buttons">
+    <table class="action-buttons2">
+      <tr>
+        <td>
+          <input type="button" class="call button-primary" value="Llamar">
+        </td>
+        <td>
+          <input type="button" class="delete button-primary" value="borrar">
+        </td>
+      </tr>        
+    </table>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
