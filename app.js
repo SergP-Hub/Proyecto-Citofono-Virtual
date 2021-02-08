@@ -1,7 +1,9 @@
 
 // Get Flat Number from API
+const url = 'https://next.json-generator.com/api/json/get/41_QW6ze5';
+
 function validateCall() {
-  fetch('https://next.json-generator.com/api/json/get/41_QW6ze5')
+  fetch(url)
   .then(res => res.json())
   .then(res => {
     let flatNumbers = [];
