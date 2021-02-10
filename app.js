@@ -53,56 +53,30 @@ function AlertMessage(message, className) {
 // DOM elements
 const callButton = document.querySelector('.call');
 const screenPhone = document.getElementById('screen');
-const deleteButton = document.querySelector('.delete')
-const nOne = document.getElementById('one');
-const ntwo = document.getElementById('two');
-const nthree = document.getElementById('three');
-const nfour = document.getElementById('four');
-const nfive = document.getElementById('five');
-const nsix = document.getElementById('six');
-const nseven = document.getElementById('seven');
-const neight = document.getElementById('eight');
-const nnine = document.getElementById('nine');
-const nzero = document.getElementById('zero');
+const deleteButton = document.querySelector('.delete');
+const screen = document.getElementById('screen');
+const tableKeys =document.getElementById('keys');
 
 
-nOne.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '1';
-})
-ntwo.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '2';
-})
-nthree.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '3';
-})
-nfour.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '4';
-})
-nfive.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '5';
-})
-nsix.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '6';
-})
-nseven.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '7';
-})
-neight.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '8';
-})
-nnine.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '9';
-})
-nzero.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '0';
-})
+tableKeys.addEventListener('click', (e) => {
+  const targetKey = e.target;
+  const keyData = targetKey.dataset;
+  if(keyData.number) writeScreen(keyData.number)
+});
+
+// Add numbers to screen
+function writeScreen(numberKey) {
+  screen.textContent += numberKey 
+};
+
+// Clean screen
+deleteButton.addEventListener('click', (e) => {
+  const text = screen.textContent;
+  screen.textContent = text.slice(0, -1);
+});
 
 // Making a call function
 callButton.addEventListener('click', validateCall); 
 
-// Clean screen
-deleteButton.addEventListener('click', (e) => {
-  screenPhone.textContent = '';
-  
-})
+
 
