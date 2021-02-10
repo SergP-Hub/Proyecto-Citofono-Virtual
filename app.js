@@ -2,38 +2,37 @@
 // Get Flat Number from API
 const url = 'https://next.json-generator.com/api/json/get/41_QW6ze5';
 
-function validateCall() {
+// new vertion
+
+function validateNumber() {
   fetch(url)
   .then(res => res.json())
-  .then(res => {
-    let flatNumbers = [];
-    let dial = screenPhone.textContent;
-    let numDial = parseInt(dial);
-    for (let i = 0; i < res.length; i++) {
-      flatNumbers.push(res[i].number)
-    };
-    let indxNumber = flatNumbers.indexOf(numDial)
-    
-
-    if (screenPhone.textContent == '') {
-      AlertMessage('Ingrese el numero de un apartamento', 'error');
+  .then(result => {
+    const apartmentNumber = parseInt(screen.textContent);
+    if(screen.textContent === '') {
+      AlertMessage('Ingrese un numero antes de llamar', 'error');
     } else {
-      if (flatNumbers.includes(numDial)){
+      apartmentData = result.find((apartment) => apartment.number === apartmentNumber);
+      if(apartmentData !== undefined){
+        validateStatus(apartmentData)
+        console.log(apartmentData)
         AlertMessage('Marcando', 'dialing');
-        let flatOwner = res[indxNumber].owner
-        
-        if (res[indxNumber].status == 'ANSWERED')
-          setTimeout(()=>{AlertMessage(`${flatOwner.firstName} ${flatOwner.lastName} ha permitido su entrada `, 'succes')}, 3000);
-          
-        else {
-          setTimeout(()=>{AlertMessage('Sin respuesta, no puede ingresar', 'error')}, 3000);
-        }
+
       } else {
-        AlertMessage('No es posible llamar, el apartamento no existe', 'error')
-      };
+        AlertMessage('No es posible llamar, el apartamento no existe', 'error');
+      }
     }
-  }) 
+  })  
 };
+
+function validateStatus(data) {
+  if (data.status === 'ANSWERED'){
+    setTimeout(()=>{AlertMessage(`${data.owner.firstName} ${data.owner.lastName} ha permitido su entrada `, 'succes')}, 3000);
+  } else {
+    setTimeout(()=>{
+      AlertMessage('Sin respuesta, no puede ingresar', 'error')}, 3000);
+  }
+}
 
 
 // Alerts
@@ -76,7 +75,4 @@ deleteButton.addEventListener('click', (e) => {
 });
 
 // Making a call function
-callButton.addEventListener('click', validateCall); 
-
-
-
+callButton.addEventListener('click', validateNumber); 
