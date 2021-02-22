@@ -1,37 +1,38 @@
 
 // Get Flat Number from API
-function validateCall() {
-  fetch('https://next.json-generator.com/api/json/get/41_QW6ze5')
-  .then(res => res.json())
-  .then(res => {
-    let flatNumbers = [];
-    let dial = screenPhone.textContent;
-    let numDial = parseInt(dial);
-    for (let i = 0; i < res.length; i++) {
-      flatNumbers.push(res[i].number)
-    };
-    let indxNumber = flatNumbers.indexOf(numDial)
-    
+const url = 'https://next.json-generator.com/api/json/get/41_QW6ze5';
 
-    if (screenPhone.textContent == '') {
-      AlertMessage('Ingrese el numero de un apartamento', 'error');
+// new vertion
+
+function validateNumber() {
+  fetch(url)
+  .then(res => res.json())
+  .then(result => {
+    const apartmentNumber = parseInt(screen.textContent);
+    if(screen.textContent === '') {
+      AlertMessage('Ingrese un numero antes de llamar', 'error');
     } else {
-      if (flatNumbers.includes(numDial)){
+      apartmentData = result.find((apartment) => apartment.number === apartmentNumber);
+      if(apartmentData !== undefined){
+        validateStatus(apartmentData)
+        console.log(apartmentData)
         AlertMessage('Marcando', 'dialing');
-        let flatOwner = res[indxNumber].owner
-        
-        if (res[indxNumber].status == 'ANSWERED')
-          setTimeout(()=>{AlertMessage(`${flatOwner.firstName} ${flatOwner.lastName} ha permitido su entrada `, 'succes')}, 3000);
-          
-        else {
-          setTimeout(()=>{AlertMessage('Sin respuesta, no puede ingresar', 'error')}, 3000);
-        }
+
       } else {
-        AlertMessage('No es posible llamar, el apartamento no existe', 'error')
-      };
+        AlertMessage('No es posible llamar, el apartamento no existe', 'error');
+      }
     }
-  }) 
+  })  
 };
+
+function validateStatus(data) {
+  if (data.status === 'ANSWERED'){
+    setTimeout(()=>{AlertMessage(`${data.owner.firstName} ${data.owner.lastName} ha permitido su entrada `, 'succes')}, 3000);
+  } else {
+    setTimeout(()=>{
+      AlertMessage('Sin respuesta, no puede ingresar', 'error')}, 3000);
+  }
+}
 
 
 // Alerts
@@ -51,56 +52,27 @@ function AlertMessage(message, className) {
 // DOM elements
 const callButton = document.querySelector('.call');
 const screenPhone = document.getElementById('screen');
-const deleteButton = document.querySelector('.delete')
-const nOne = document.getElementById('one');
-const ntwo = document.getElementById('two');
-const nthree = document.getElementById('three');
-const nfour = document.getElementById('four');
-const nfive = document.getElementById('five');
-const nsix = document.getElementById('six');
-const nseven = document.getElementById('seven');
-const neight = document.getElementById('eight');
-const nnine = document.getElementById('nine');
-const nzero = document.getElementById('zero');
+const deleteButton = document.querySelector('.delete');
+const screen = document.getElementById('screen');
+const tableKeys =document.getElementById('keys');
 
 
-nOne.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '1';
-})
-ntwo.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '2';
-})
-nthree.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '3';
-})
-nfour.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '4';
-})
-nfive.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '5';
-})
-nsix.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '6';
-})
-nseven.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '7';
-})
-neight.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '8';
-})
-nnine.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '9';
-})
-nzero.addEventListener('click', (e) => {
-  screenPhone.textContent = screenPhone.textContent + '0';
-})
+tableKeys.addEventListener('click', (e) => {
+  const targetKey = e.target;
+  const keyData = targetKey.dataset;
+  if(keyData.number) writeScreen(keyData.number)
+});
 
-// Making a call function
-callButton.addEventListener('click', validateCall); 
+// Add numbers to screen
+function writeScreen(numberKey) {
+  screen.textContent += numberKey 
+};
 
 // Clean screen
 deleteButton.addEventListener('click', (e) => {
-  screenPhone.textContent = '';
-  
-})
+  const text = screen.textContent;
+  screen.textContent = text.slice(0, -1);
+});
 
+// Making a call function
+callButton.addEventListener('click', validateNumber); 
